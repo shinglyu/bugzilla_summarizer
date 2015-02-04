@@ -1,0 +1,28 @@
+{
+  "name": "bugzilla_summerization",
+  "version": "0.0.1",
+  "authors": [
+    "Shing Lyu <shing.lyu@gmail.com>"
+  ],
+  "description": "A summerized view of Bugzilla bugs",
+  "main": "index.html",
+  "moduleType": [
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "bugzilla"
+  ],
+  "license": "MPL2.0",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "d3": "~3.5.3"
+  }
+}
