@@ -1,6 +1,7 @@
 .node {
   fill: green;
   stroke: black;
+  font-size:12px;
 }
 
 .link {

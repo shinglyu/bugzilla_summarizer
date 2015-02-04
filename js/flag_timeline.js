@@ -1,5 +1,5 @@
 var height=500;
-var dayWidth=200;
+var dayWidth=120;
 var margin = {
       top: 40,
       bottom: 0,
@@ -108,7 +108,8 @@ function draw(jsonfname){
 			.attr("dx", radius)
 			.text(function(d) { return d.action + d.name; });
   
-    node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+    node.transition().duration(1000)
+      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
 
     /**************************
      * Links
@@ -124,6 +125,7 @@ function draw(jsonfname){
       dy = targNode.y - srcNode.y;
       M = "M" + srcNode.x + "," + srcNode.y + " "; //starting point
       //c = "c0,0, 0,0 "
+      //TODO: alternative up and down
       c = "c0,50, " + dx + ",50 ";
       c += dx + "," + dy;
       //c = "C" + (srcNode.x + dx/10) + "," + (10000/dx) + " " + (targNode.x-dx/10) + "," + (10000/dx) + " ";
