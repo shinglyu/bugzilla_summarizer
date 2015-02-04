@@ -4,6 +4,10 @@
   font-size:12px;
 }
 
+.status {
+  fill: brown;
+}
+
 .depends_on {
   fill: red;
 }

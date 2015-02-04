@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="./style/flag_timeline.css" type="text/css" media="all" />
   </head>
   <body>
+    <input type="number" name="bzlid" id="bzlid" value="1023688" />
+    <button id="submitbtn">Visualize</button>
     <div id="svgContent"> </div>
     <script src="./bower_components/jquery/jquery.min.js"></script>
     <script src="./bower_components/jsonproxy/jsonp.js"></script>
@@ -17,7 +19,12 @@
       window.onload = function(){
         //draw('./demodata_history.json');
         //drawLocalJson('./demodata_history.json');
-        drawRemoteJson('https://bugzilla.mozilla.org/rest/bug/1023688/history');
+        //drawRemoteJson('https://bugzilla.mozilla.org/rest/bug/1023688/history');
+
+        document.getElementById("submitbtn").onclick = function(){
+          var bzlid = document.getElementById("bzlid").value;
+          drawRemoteJson('https://bugzilla.mozilla.org/rest/bug/'+ bzlid + '/history');
+        }
       }
     </script>
   </body>
