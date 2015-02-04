@@ -1,6 +1,8 @@
 var https = require('https');
 var fs = require('fs');
 var url = "https://bugzilla.mozilla.org/rest/bug/1023688/history";
+//var infile = '../test/mock_history.json'
+var infile = '../test/1023688_history.json'
 var outfile = "./demodata_history.json"
 
 function parseHistory(response) {
@@ -127,7 +129,7 @@ https.get(url, function(res) {
 });
 */
 
-fs.readFile('../test/mock_history.json', function(err, data){
+fs.readFile(infile, function(err, data){
   if (err) throw err;
   //console.log(data)
   parseHistory(JSON.parse(data))

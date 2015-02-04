@@ -1,4 +1,4 @@
-var height=500;
+var height=600;
 var dayWidth=120;
 var margin = {
       top: 40,
@@ -11,10 +11,20 @@ var radius = 10;
 //beize cure contorl point
 var ctlx = 10;
 var ctly = 35;
-function draw(jsonfname){
+function drawLocalJson(jsonfname){
   d3.json(jsonfname, function(err, data){
+    draw(data);
+  });
+}
+
+function drawRemoteJson(jsonUrl){
+  d3.json(jsonfname, function(err, data){
+    draw(data);
+  });
+}
     //var line = d3.svg.line()
 
+function draw(data){
     var dayRange = d3.extent(data.nodes, function(n, i){ return n.date; });
     dayRange = dayRange.map(function(d){return new Date(d);});
     var interval = (dayRange[1]- dayRange[0]) / 1000 / 60 / 60 / 24 + 1;
@@ -65,13 +75,25 @@ function draw(jsonfname){
     data.nodes.forEach(function(n){
       n.x = x(new Date(n.date));
       //n.y = height/2;
-      if (!stackCount.hasOwnProperty(n.x)){
+      var roundedX = Math.round(n.x/dayWidth)
+      //console.log(roundedX)
+      if (!stackCount.hasOwnProperty(roundedX)){
+        stackCount[roundedX] = {}
         n.y = y(n.type);
-        stackCount[n.x] = 1
+        stackCount[roundedX][n.type] = 1
       }
       else {
-        n.y = y(n.type) + stackCount[n.x] + 2*radius;
-        stackCount[n.x] += 1
+        if (!stackCount[roundedX].hasOwnProperty(n.type)){
+
+          n.y = y(n.type);
+          stackCount[roundedX][n.type] = 1
+        }
+        else{
+          n.y = y(n.type) + stackCount[roundedX][n.type]*2*radius;
+          //console.log(n.name + " " + n.type + " " + n.y)
+          stackCount[roundedX][n.type] += 1
+          
+        }
       }
       //TODO: create a ordinal scale for types of y
     });
@@ -79,7 +101,8 @@ function draw(jsonfname){
 		var node = svg.selectAll(".node")
 			.data(data.nodes)
 			.enter().append("g")
-			.attr("class", "node");
+			//.attr("class", "node")
+			.attr("class", function(n, i){return "node " + n.type;});
 
     var circle = node.append("svg:circle")
         .attr('id', function (d) {
@@ -130,7 +153,7 @@ function draw(jsonfname){
       c += dx + "," + dy;
       //c = "C" + (srcNode.x + dx/10) + "," + (10000/dx) + " " + (targNode.x-dx/10) + "," + (10000/dx) + " ";
       //c += targNode.x + "," + targNode.y
-      console.log(M + c);
+      //console.log(M + c);
       return M + c;
     }
 
@@ -159,7 +182,4 @@ function draw(jsonfname){
     })
     .attr("class", "link");
     //.attr("marker-end", "url(#end)");
-
-  });
-
 }

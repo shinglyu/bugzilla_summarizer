@@ -4,6 +4,27 @@
   font-size:12px;
 }
 
+.depends_on {
+  fill: red;
+}
+
+.cc {
+  fill: blue;
+}
+
+.flagtypes\.name {
+  fill: yellow;
+
+}
+
+.platform {
+  fill: cyan;
+}
+
+.op_sys{
+  fill: purple;
+}
+
 .link {
   fill:none;
   stroke: grey;

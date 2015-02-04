@@ -12,7 +12,9 @@
     <script src="./js/flag_timeline.js"></script>
     <script type="text/javascript" charset="utf-8">
       window.onload = function(){
-        draw('./demodata_history.json');
+        //draw('./demodata_history.json');
+        //drawLocalJson('./demodata_history.json');
+        drawRemoteJson('https://bugzilla.mozilla.org/rest/bug/1023688/history');
       }
     </script>
   </body>
