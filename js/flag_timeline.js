@@ -18,13 +18,17 @@ function drawLocalJson(jsonfname){
 }
 
 function drawRemoteJson(jsonUrl){
-  d3.json(jsonfname, function(err, data){
-    draw(data);
+  $.jsonp({
+    url: jsonUrl,
+    success: function(data){
+      draw(parseHistory(data)); //requires parse_history_browser.js
+    }
   });
 }
     //var line = d3.svg.line()
 
 function draw(data){
+  console.log(data)
     var dayRange = d3.extent(data.nodes, function(n, i){ return n.date; });
     dayRange = dayRange.map(function(d){return new Date(d);});
     var interval = (dayRange[1]- dayRange[0]) / 1000 / 60 / 60 / 24 + 1;
