@@ -23,9 +23,11 @@
         //draw('./demodata_history.json');
         //drawLocalJson('./demodata_history.json');
         //drawRemoteJson('https://bugzilla.mozilla.org/rest/bug/1023688/history');
+        drawRemoteJson('https://bugzilla.mozilla.org/rest/bug/1109422/history');
 
         document.getElementById("submitbtn").onclick = function(){
           var bzlid = document.getElementById("bzlid").value;
+          clearSvg();
           drawRemoteJson('https://bugzilla.mozilla.org/rest/bug/'+ bzlid + '/history');
         }
       }

@@ -17,11 +17,15 @@ function drawLocalJson(jsonfname){
   });
 }
 
-function drawRemoteJson(jsonUrl){
+function drawRemoteJson(jsonUrl, retry){
+  retry = retry || 3;
   $.jsonp({
     url: jsonUrl,
     success: function(data){
       draw(parseHistory(data)); //requires parse_history_browser.js
+    },
+    error: function(xhr, status, err){
+      setTimeout(function(){drawRemoteJson(jsonUrl, retry-1);}, 1000);
     }
   });
 }
@@ -186,4 +190,8 @@ function draw(data){
     })
     .attr("class", "link");
     //.attr("marker-end", "url(#end)");
+}
+
+function clearSvg(){
+    document.getElementById("svgContent").innerHTML = "";
 }
